@@ -56,15 +56,21 @@
         background: #3074a4;
     }
     
-    .mapboxgl-popup {
-        max-width: 400px;
-        font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    #features {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 300px;
+        overflow: auto;
+        background: rgba(255, 255, 255, 0.8);
     }
 </style>
 
 <nav id="menu"></nav>
 <div id="map"></div>
-
+<pre id='features'></pre>
+    
 <script>
 mapboxgl.accessToken = 'pk.eyJ1IjoiYW1pdGplbmEiLCJhIjoiY2o2aHAzOW41MGIzdTMzbXk0cjMyOXN0MCJ9.jU-OC0hJrb2uZjUVymXHsQ';
 var map = new mapboxgl.Map({
@@ -74,6 +80,10 @@ var map = new mapboxgl.Map({
     center: [83.382,23.617]
 });
 
+ map.on('mousemove', function (e) {
+    var features = map.queryRenderedFeatures(e.point);
+    document.getElementById('features').innerHTML = JSON.stringify(features, null, 2);
+});
 // map.on('load', function () {
 //     map.addSource('museums', {
 //         type: 'vector',

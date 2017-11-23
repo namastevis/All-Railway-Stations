@@ -157,9 +157,8 @@ for (var i = 0; i < toggleableLayerIds.length; i++) {
 
         // Populate the popup and set its coordinates
         // based on the feature found.
-        popup.setLngLat(e.features[0].geometry.coordinates)
-      .setHTML(checkEmpty(e.features[0].properties.name))
-      .addTo(map);
+        popup.setHTML(e.STATION_NAME)
+                .addTo(map);
   
     });
 

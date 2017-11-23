@@ -55,6 +55,11 @@
     #menu a.active:hover {
         background: #3074a4;
     }
+    
+    .mapboxgl-popup {
+        max-width: 400px;
+        font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    }
 </style>
 
 <nav id="menu"></nav>
@@ -139,6 +144,27 @@ for (var i = 0; i < toggleableLayerIds.length; i++) {
     layers.appendChild(link);
 }
 
+    
+    // Create a popup, but don't add it to the map yet.
+    var popup = new mapboxgl.Popup({
+        closeButton: false,
+        closeOnClick: false
+    });
+
+    map.on('mouseenter', 'Category-A1', function(e) {
+        // Change the cursor style as a UI indicator.
+        map.getCanvas().style.cursor = 'pointer';
+
+        // Populate the popup and set its coordinates
+        // based on the feature found.
+        popup.setText(e.STATION_NAME)
+             .addTo(map);
+    });
+
+    map.on('mouseleave', 'Category-A1', function() {
+        map.getCanvas().style.cursor = '';
+        popup.remove();
+    });
 </script>
 
 </body>

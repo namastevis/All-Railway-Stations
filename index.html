@@ -80,11 +80,11 @@ var map = new mapboxgl.Map({
     center: [83.382,23.617]
 });
 
- //map.on('mousemove', function (e) {
- //   map.getCanvas().style.cursor = 'pointer';
- //   var features = map.queryRenderedFeatures(e.point);
- //   document.getElementById('features').innerHTML = JSON.stringify(features, null, 2);
-//});
+ map.on('mousemove', function (e) {
+    map.getCanvas().style.cursor = 'pointer';
+    var features = map.queryRenderedFeatures(e.point);
+    document.getElementById('features').innerHTML = JSON.stringify(features, null, 2);
+});
 
 map.on('mouseenter', function (e) {
    map.getCanvas().style.cursor = 'pointer';

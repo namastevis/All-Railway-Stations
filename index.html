@@ -13,14 +13,6 @@
 </head>
 <body>
 
-<h1>
-	The Great 
-	<br>
-	<span id="colorDisplay">RGB</span> 
-	<br>
-	Color Game
-</h1>    
-    
 <style>
     #menu {
         background: #fff;
@@ -88,12 +80,22 @@ var map = new mapboxgl.Map({
     center: [83.382,23.617]
 });
 
- map.on('mousemove', function (e) {
-    map.getCanvas().style.cursor = 'pointer';
-    var features = map.queryRenderedFeatures(e.point);
-    document.getElementById('features').innerHTML = JSON.stringify(features, null, 2);
-});
+ //map.on('mousemove', function (e) {
+ //   map.getCanvas().style.cursor = 'pointer';
+ //   var features = map.queryRenderedFeatures(e.point);
+ //   document.getElementById('features').innerHTML = JSON.stringify(features, null, 2);
+//});
 
+map.on('mouseenter', function (e) {
+   map.getCanvas().style.cursor = 'pointer';
+   var features = map.queryRenderedFeatures(e.point);
+   document.getElementById('features').innerHTML = JSON.stringify(features, null, 2);
+});
+map.on('mouseleave', 'places', function() {
+        map.getCanvas().style.cursor = '';
+        popup.remove();
+    });
+	
 var toggleableLayerIds = [ 'States', 'Districts', 'Category-A1', 'Category-A', 'Category-B', 'Category-C', 'Category-D', 'Category-E', 'Category-F' ];
 
 for (var i = 0; i < toggleableLayerIds.length; i++) {

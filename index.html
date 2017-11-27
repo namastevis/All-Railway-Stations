@@ -86,16 +86,6 @@ var map = new mapboxgl.Map({
     document.getElementById('features').innerHTML = JSON.stringify(features, null, 2);
 });
 
-map.on('mouseenter', function (e) {
-   map.getCanvas().style.cursor = 'pointer';
-   var features = map.queryRenderedFeatures(e.point);
-   document.getElementById('features').innerHTML = JSON.stringify(features, null, 2);
-});
-map.on('mouseleave', 'places', function() {
-        map.getCanvas().style.cursor = '';
-       
-    });
-	
 var toggleableLayerIds = [ 'States', 'Districts', 'Category-A1', 'Category-A', 'Category-B', 'Category-C', 'Category-D', 'Category-E', 'Category-F' ];
 
 for (var i = 0; i < toggleableLayerIds.length; i++) {

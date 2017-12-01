@@ -25,7 +25,6 @@
         border: 1px solid rgba(0,0,0,0.4);
         font-family: 'Open Sans', sans-serif;
     }
-
     #menu a {
         font-size: 13px;
         color: #404040;
@@ -37,21 +36,17 @@
         border-bottom: 1px solid rgba(0,0,0,0.25);
         text-align: center;
     }
-
     #menu a:last-child {
         border: none;
     }
-
     #menu a:hover {
         background-color: #f8f8f8;
         color: #404040;
     }
-
     #menu a.active {
         background-color: #3887be;
         color: #ffffff;
     }
-
     #menu a.active:hover {
         background: #3074a4;
     }
@@ -65,44 +60,71 @@
         overflow: auto;
         background: rgba(255, 255, 255, 0.8);
     }
+
+    #menuMapStyle {
+        position: absolute;
+        background: #fff;
+        padding: 10px;
+        font-family: 'Open Sans', sans-serif;
+    }
 </style>
 
 <nav id="menu"></nav>
 <div id="map"></div>
 <pre id='features'></pre>
+<div id='menuMapStyle'>
+    <input id='blank' type='radio' name='rtoggle' value='blank' checked='checked'>
+    <label for='blank'>Blank</label>
+    <input id='streets' type='radio' name='rtoggle' value='streets'>
+    <label for='streets'>Streets</label>
+    <input id='satellite' type='radio' name='rtoggle' value='satellite'>
+    <label for='satellite'>Satellite</label>
+</div>
     
 <script>
 mapboxgl.accessToken = 'pk.eyJ1IjoiYW1pdGplbmEiLCJhIjoiY2o2aHAzOW41MGIzdTMzbXk0cjMyOXN0MCJ9.jU-OC0hJrb2uZjUVymXHsQ';
 var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/amitjena/cjakltt8xbusv2so9fv9ce8te',
+    style: 'mapbox://styles/amitjena/cjaaj0whd2i322rpbvdd6pcmx',
     zoom: 4,
     center: [83.382,23.617]
 });
+
+var layerList = document.getElementById('menuMapStyle');
+var inputs = layerList.getElementsByTagName('input');
+
+function switchLayer(layer) {
+    var layerId = layer.target.id;
+    if(layerId == "satellite")
+    map.setStyle('mapbox://styles/amitjena/cjakltt8xbusv2so9fv9ce8te');
+    else if(layerId == "blank")
+    	map.setStyle('mapbox://styles/amitjena/cjaaj0whd2i322rpbvdd6pcmx');
+    else if(layerId == "streets")
+    	map.setStyle('mapbox://styles/amitjena/cjanqy5hf28ns2rpdyljlzlh0');
+}
+
+for (var i = 0; i < inputs.length; i++) {
+    inputs[i].onclick = switchLayer;
+}
+
 
  map.on('mousemove', function (e) {
     map.getCanvas().style.cursor = 'pointer';
     var features = map.queryRenderedFeatures(e.point);
     document.getElementById('features').innerHTML = JSON.stringify(features, null, 2);
 });
-
 var toggleableLayerIds = [ 'States', 'Districts', 'Category-A1', 'Category-A', 'Category-B', 'Category-C', 'Category-D', 'Category-E', 'Category-F' ];
-
 for (var i = 0; i < toggleableLayerIds.length; i++) {
     var id = toggleableLayerIds[i];
-
     var link = document.createElement('a');
     link.href = '#';
     link.className = 'active';
     link.textContent = id;
-
     link.onclick = function (e) {
         var clickedLayer = this.textContent;
         e.preventDefault();
         e.stopPropagation();
-
         var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
-
         if (visibility === 'visible') {
             map.setLayoutProperty(clickedLayer, 'visibility', 'none');
             this.className = '';
@@ -111,11 +133,9 @@ for (var i = 0; i < toggleableLayerIds.length; i++) {
             map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
         }
     };
-
     var layers = document.getElementById('menu');
     layers.appendChild(link);
 }
-
 </script>
 
 </body>

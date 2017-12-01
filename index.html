@@ -14,13 +14,39 @@
 <body>
 
 <style>
+    #menuMapStyle {
+        position: absolute;
+        top: 0px;
+        height: 2.2%;
+        width: 100%;
+        color: rgb(255,255,255);
+        background: rgba(255,100,0,0.8);
+        padding: 10px;
+        border-radius: 3px;
+        /*text-align: center;*/
+        font-family: 'Open Sans', sans-serif;
+    }
+    #TL {
+    	position: absolute;
+    	font-size: 13px;
+    	background: rgb(4,137,186);
+        top: 36px;
+        height: 28px;
+        width: 100px;
+        border-radius: 3px;
+        padding: 5px;
+        color: rgb(255,255,255);
+        font-family: 'Open Sans', sans-serif;
+        text-align: center;
+        border: 1px solid rgba(0,0,0,0.4);
+    }
     #menu {
         background: #fff;
         position: relative;
         z-index: 1;
-        top: 10px;
+        top: 76px;
         right: 10px;
-        border-radius: 3px;
+        /*border-radius: 3px;*/
         width: 120px;
         border: 1px solid rgba(0,0,0,0.4);
         font-family: 'Open Sans', sans-serif;
@@ -56,31 +82,81 @@
         top: 0;
         right: 0;
         bottom: 0;
-        width: 300px;
+        width: 330px;
         overflow: auto;
         background: rgba(255, 255, 255, 0.8);
     }
 
-    #menuMapStyle {
-        position: absolute;
-        background: #fff;
-        padding: 10px;
-        font-family: 'Open Sans', sans-serif;
+    .style {
+    float: left;
+    text-align:left;
+    width:33%;
+	}
+    .message {
+    float: left;
+    text-align:center;
+    width:33%;
     }
+    .by {
+    float: left;
+    text-align:right;
+    width:33%;
+	}
+	#links {
+    	position: absolute;
+    	font-size: 15px;
+    	background: rgb(102, 102, 51);
+        top: 400px;
+        height: 110px;
+        width: 100px;
+        border-radius: 3px;
+        padding: 5px;
+        color: rgb(255,255,255);
+        font-family: 'Open Sans', sans-serif;
+        text-align: center;
+        border: 1px solid rgba(0,0,0,0.4);
+    }
+    /*.message {float: right;}*/
+    /*#graph {
+    	position: relative;
+    	top: 10px;
+    	width: 20%;
+    	height: 20px;
+    	border: 1px solid #000;
+    }*/
 </style>
 
 <nav id="menu"></nav>
 <div id="map"></div>
 <pre id='features'></pre>
 <div id='menuMapStyle'>
+	<span class ="style">
+	<label for='MapStyle'>Map Styles</label>
     <input id='blank' type='radio' name='rtoggle' value='blank' checked='checked'>
     <label for='blank'>Blank</label>
     <input id='streets' type='radio' name='rtoggle' value='streets'>
     <label for='streets'>Streets</label>
     <input id='satellite' type='radio' name='rtoggle' value='satellite'>
     <label for='satellite'>Satellite</label>
+	</span>
+	
+    <span class="message">Visualization of All 8495 Indian Railway Stations</span>
+    <span class="by">Amit Jena @ IDC, IIT Bombay</span>
 </div>
-    
+<div id='TL'>
+	<label>Click below to Toggle Layers</label>
+</div> 
+<div id="links">
+	<br>
+	<label>Link To</label>
+	<br><br>
+	<a href="https://medium.com/@amitjena.viz/the-tale-of-indias-8495-railway-stations-65737408c0ae" target="_blank">Medium Post</a>
+	<br><br>
+	<a href="https://github.com/amitjenaviz/All-Railway-Stations" target="_blank">Link to Github</a>
+</div>
+<!-- <div id="graph">
+	<img src="http://c1.staticflickr.com/9/8450/8026519634_f33f3724ea_b.jpg">
+</div>  -->  
 <script>
 mapboxgl.accessToken = 'pk.eyJ1IjoiYW1pdGplbmEiLCJhIjoiY2o2aHAzOW41MGIzdTMzbXk0cjMyOXN0MCJ9.jU-OC0hJrb2uZjUVymXHsQ';
 var map = new mapboxgl.Map({
@@ -111,7 +187,8 @@ for (var i = 0; i < inputs.length; i++) {
  map.on('mousemove', function (e) {
     map.getCanvas().style.cursor = 'pointer';
     var features = map.queryRenderedFeatures(e.point);
-    document.getElementById('features').innerHTML = JSON.stringify(features, null, 2);
+    var temp = JSON.stringify(features, null, 2);
+    document.getElementById('features').innerHTML = temp;
 });
 var toggleableLayerIds = [ 'States', 'Districts', 'Category-A1', 'Category-A', 'Category-B', 'Category-C', 'Category-D', 'Category-E', 'Category-F' ];
 for (var i = 0; i < toggleableLayerIds.length; i++) {

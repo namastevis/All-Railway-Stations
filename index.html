@@ -77,7 +77,7 @@
         background: #3074a4;
     }
     
-    #features {
+   /* #features {
         position: absolute;
         top: 0;
         right: 0;
@@ -85,8 +85,7 @@
         width: 330px;
         overflow: auto;
         background: rgba(255, 255, 255, 0.8);
-    }
-
+    }*/
     .style {
     float: left;
     text-align:left;
@@ -165,10 +164,8 @@ var map = new mapboxgl.Map({
     zoom: 4,
     center: [83.382,23.617]
 });
-
 var layerList = document.getElementById('menuMapStyle');
 var inputs = layerList.getElementsByTagName('input');
-
 function switchLayer(layer) {
     var layerId = layer.target.id;
     if(layerId == "satellite")
@@ -178,18 +175,128 @@ function switchLayer(layer) {
     else if(layerId == "streets")
     	map.setStyle('mapbox://styles/amitjena/cjanqy5hf28ns2rpdyljlzlh0');
 }
-
 for (var i = 0; i < inputs.length; i++) {
     inputs[i].onclick = switchLayer;
 }
+//  map.on('mousemove', function (e) {
+//     map.getCanvas().style.cursor = 'pointer';
+//     var features = map.queryRenderedFeatures(e.point);
+//     var temp = JSON.stringify(features, null, 2);
+//     document.getElementById('features').innerHTML = temp;
+// });
 
+ // Create a popup, but don't add it to the map yet.
+    var popup = new mapboxgl.Popup({
+        closeButton: false,
+        closeOnClick: false
+    });
 
- map.on('mousemove', function (e) {
-    map.getCanvas().style.cursor = 'pointer';
-    var features = map.queryRenderedFeatures(e.point);
-    var temp = JSON.stringify(features, null, 2);
-    document.getElementById('features').innerHTML = temp;
-});
+    map.on('mouseenter', 'Category-A1', function(e) {
+        // Change the cursor style as a UI indicator.
+        map.getCanvas().style.cursor = 'pointer';
+
+        // Populate the popup and set its coordinates
+        // based on the feature found.
+        popup.setLngLat(e.features[0].geometry.coordinates)
+            .setHTML("Name: " + e.features[0].properties.STATION_NAME + " (" + e.features[0].properties.STATION_CODE + ")" + '<br/>' + "Category: " + e.features[0].properties.CATEGORY + '<br/>' + "State: " + e.features[0].properties.STATE)
+            .addTo(map);
+    });
+    map.on('mouseleave', 'Category-A1', function() {
+        map.getCanvas().style.cursor = '';
+        popup.remove();
+    });
+
+    map.on('mouseenter', 'Category-A', function(e) {
+        // Change the cursor style as a UI indicator.
+        map.getCanvas().style.cursor = 'pointer';
+
+        // Populate the popup and set its coordinates
+        // based on the feature found.
+        popup.setLngLat(e.features[0].geometry.coordinates)
+            .setHTML("Name: " + e.features[0].properties.STATION_NAME + " (" + e.features[0].properties.STATION_CODE + ")" + '<br/>' + "Category: " + e.features[0].properties.CATEGORY + '<br/>' + "State: " + e.features[0].properties.STATE)
+            .addTo(map);
+    });
+    map.on('mouseleave', 'Category-A', function() {
+        map.getCanvas().style.cursor = '';
+        popup.remove();
+    });
+
+    map.on('mouseenter', 'Category-B', function(e) {
+        // Change the cursor style as a UI indicator.
+        map.getCanvas().style.cursor = 'pointer';
+
+        // Populate the popup and set its coordinates
+        // based on the feature found.
+        popup.setLngLat(e.features[0].geometry.coordinates)
+            .setHTML("Name: " + e.features[0].properties.STATION_NAME + " (" + e.features[0].properties.STATION_CODE + ")" + '<br/>' + "Category: " + e.features[0].properties.CATEGORY + '<br/>' + "State: " + e.features[0].properties.STATE)
+            .addTo(map);
+    });
+    map.on('mouseleave', 'Category-B', function() {
+        map.getCanvas().style.cursor = '';
+        popup.remove();
+    });
+
+    map.on('mouseenter', 'Category-C', function(e) {
+        // Change the cursor style as a UI indicator.
+        map.getCanvas().style.cursor = 'pointer';
+
+        // Populate the popup and set its coordinates
+        // based on the feature found.
+        popup.setLngLat(e.features[0].geometry.coordinates)
+            .setHTML("Name: " + e.features[0].properties.STATION_NAME + " (" + e.features[0].properties.STATION_CODE + ")" + '<br/>' + "Category: " + e.features[0].properties.CATEGORY + '<br/>' + "State: " + e.features[0].properties.STATE)
+            .addTo(map);
+    });
+    map.on('mouseleave', 'Category-C', function() {
+        map.getCanvas().style.cursor = '';
+        popup.remove();
+    });
+
+    map.on('mouseenter', 'Category-D', function(e) {
+        // Change the cursor style as a UI indicator.
+        map.getCanvas().style.cursor = 'pointer';
+
+        // Populate the popup and set its coordinates
+        // based on the feature found.
+        popup.setLngLat(e.features[0].geometry.coordinates)
+            .setHTML("Name: " + e.features[0].properties.STATION_NAME + " (" + e.features[0].properties.STATION_CODE + ")" + '<br/>' + "Category: " + e.features[0].properties.CATEGORY + '<br/>' + "State: " + e.features[0].properties.STATE)
+            .addTo(map);
+    });
+    map.on('mouseleave', 'Category-D', function() {
+        map.getCanvas().style.cursor = '';
+        popup.remove();
+    });
+
+    map.on('mouseenter', 'Category-E', function(e) {
+        // Change the cursor style as a UI indicator.
+        map.getCanvas().style.cursor = 'pointer';
+
+        // Populate the popup and set its coordinates
+        // based on the feature found.
+        popup.setLngLat(e.features[0].geometry.coordinates)
+            .setHTML("Name: " + e.features[0].properties.STATION_NAME + " (" + e.features[0].properties.STATION_CODE + ")" + '<br/>' + "Category: " + e.features[0].properties.CATEGORY + '<br/>' + "State: " + e.features[0].properties.STATE)
+            .addTo(map);
+    });
+    map.on('mouseleave', 'Category-E', function() {
+        map.getCanvas().style.cursor = '';
+        popup.remove();
+    });
+
+    map.on('mouseenter', 'Category-F', function(e) {
+        // Change the cursor style as a UI indicator.
+        map.getCanvas().style.cursor = 'pointer';
+
+        // Populate the popup and set its coordinates
+        // based on the feature found.
+        popup.setLngLat(e.features[0].geometry.coordinates)
+            .setHTML("Name: " + e.features[0].properties.STATION_NAME + " (" + e.features[0].properties.STATION_CODE + ")" + '<br/>' + "Category: " + e.features[0].properties.CATEGORY + '<br/>' + "State: " + e.features[0].properties.STATE)
+            .addTo(map);
+    });
+    map.on('mouseleave', 'Category-F', function() {
+        map.getCanvas().style.cursor = '';
+        popup.remove();
+    });
+////////////////////////////////////////////////////////////////////////////////////
+
 var toggleableLayerIds = [ 'States', 'Districts', 'Category-A1', 'Category-A', 'Category-B', 'Category-C', 'Category-D', 'Category-E', 'Category-F' ];
 for (var i = 0; i < toggleableLayerIds.length; i++) {
     var id = toggleableLayerIds[i];
